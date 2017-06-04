@@ -1,10 +1,13 @@
 class MessagesController < ApplicationController
+before_action :set_message, only: [:show, :edit, :update, :destroy]
+  #before_actionは実行前に前もて動くメソッドを指定できる
+  #only: [実行するアクションを宣言する]
+  
   def index
     @messages = Message.all
   end
 
   def show
-    @message = Message.find(params[:id])
   end
 
   def new
@@ -25,13 +28,9 @@ class MessagesController < ApplicationController
   end
 
   def edit
-    @message = Message.find(params[:id])
-    #@messageにはあらかじめconntentが入っている
   end
 
   def update
-    @message = Message.find(params[:id])
-
     if @message.update(message_params)
       flash[:success] = 'Message は正常に更新されました'
       redirect_to @message
@@ -42,7 +41,6 @@ class MessagesController < ApplicationController
   end
 
   def destroy
-    @message = Message.find(params[:id])
     @message.destroy
 
     flash[:success] = 'Message は正常に削除されました'
@@ -52,6 +50,10 @@ class MessagesController < ApplicationController
 
 private
 
+   def set_message #以下のコード部分set_messagesに置き換えてまとめられる 
+    @message = Message.find(params[:id])
+   end
+  
    # Strong Parameter セキュリティー上の推奨
   def message_params  #私用メソッド
     params.require(:message).permit(:content)
