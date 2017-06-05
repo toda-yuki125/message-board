@@ -56,7 +56,7 @@ private
   
    # Strong Parameter セキュリティー上の推奨
   def message_params  #私用メソッド
-    params.require(:message).permit(:content)
+    params.require(:message).permit(:content, :title)
   end
   #:messageモデルフォームのデータに関するものと明治
   #.permit(:content)必要な絡むだけを選択している
