@@ -4,7 +4,7 @@ before_action :set_message, only: [:show, :edit, :update, :destroy]
   #only: [実行するアクションを宣言する]
   
   def index
-    @messages = Message.all
+    @messages = Message.all.page(params[:page]).per(3)
   end
 
   def show
